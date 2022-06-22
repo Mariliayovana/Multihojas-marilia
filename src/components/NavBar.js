@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ParkIcon from '@mui/icons-material/Park';
+import CartWidget from '../components/CartWidget';
 
 const pages = ['Inicio', 'Productos', 'Ofertas', 'Consejos'];
 
@@ -25,7 +26,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" colo="success">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ParkIcon  sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -113,6 +114,7 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
+          <CartWidget/>
         </Toolbar>
       </Container>
     </AppBar>
