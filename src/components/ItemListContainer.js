@@ -6,9 +6,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import arbol from '../imagenes/arbol.jpeg';
+import ItemCount from './ItemCount';
 
 const ItemListContainer = () => {
   return (
+    <>
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
@@ -29,6 +31,8 @@ const ItemListContainer = () => {
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
+    <ItemCount stock="6" initial="1" onAdd={(contador) => console.log(contador)}/>
+  </>  
   );
 }
 export default ItemListContainer;
