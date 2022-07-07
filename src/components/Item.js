@@ -8,9 +8,6 @@ import Typography from '@mui/material/Typography';
 
 const Item = ({ name, id, description, price, pictureUrl }) => {
   return (
-    <div style={{ 
-      display: 'flex'
-    }}>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
@@ -34,7 +31,6 @@ const Item = ({ name, id, description, price, pictureUrl }) => {
           <Button size="small">Learn More</Button>
         </CardActions>
       </Card>
-    </div>
   )
 }
 export default Item
