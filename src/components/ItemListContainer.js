@@ -8,7 +8,6 @@ const ItemListContainer = () => {
     <>
     <ItemList/>
     <ItemCount stock="6" initial="1" onAdd={(contador) => console.log(contador)}/>
-    <ItemDetailContainer />
   </>  
   );
 }

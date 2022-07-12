@@ -11,8 +11,21 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ParkIcon from '@mui/icons-material/Park';
 import CartWidget from '../components/CartWidget';
+import { Link } from 'react-router-dom';
 
-const pages = ['Inicio', 'Productos', 'Ofertas', 'Consejos'];
+const pages = [{
+  label: 'Inicio',
+  href: '/'
+}, {
+  label: 'Flores',
+  href: '/category/flores'
+}, {
+  label: 'Arbol',
+  href: '/category/arbol'
+}, {
+  label: 'Hojas',
+  href: 'category/hojas'
+}];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -26,27 +39,29 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static" colo="success">
+    <AppBar position="static" colo="success ">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ParkIcon  sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            MULTIHOJAS
-          </Typography>
+          <Link to='/'>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: '#fff',
+                textDecoration: 'none',
+              }}
+            >
+              MULTIHOJAS
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -78,40 +93,46 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                  <Link to={page.href} key={page.label}>
+                    <Typography textAlign="center">{page.label}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <ParkIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            MULTIHOJAS
-          </Typography>
+          <Link to='/'>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              to='/'
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              MULTIHOJAS
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link to={page.href} key={page.label}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.label}
+                </Button>
+              </Link>
             ))}
           </Box>
           <CartWidget/>
