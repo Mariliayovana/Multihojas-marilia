@@ -29,7 +29,6 @@ const Item = ({ name, id, description, price, pictureUrl }) => {
         </CardContent>
         <CardActions>
           <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
         </CardActions>
       </Card>
     </Link>

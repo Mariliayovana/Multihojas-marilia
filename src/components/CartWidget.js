@@ -1,7 +1,7 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 
-const Carrito = () => {
+const CartWidget = () => {
   return (
     <IconButton
       size="large"
@@ -14,4 +14,4 @@ const Carrito = () => {
     </IconButton>
   )
 }
-export default Carrito;
+export default CartWidget;
