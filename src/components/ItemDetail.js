@@ -1,15 +1,19 @@
 import { Paper, Typography } from "@mui/material";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import ItemCount from "./ItemCount";
 import { Link } from 'react-router-dom';
+import { CartContext } from "./CartContext"
 
-const ItemDetail = ({name, description, price, pictureUrl}) => {
+
+const ItemDetail = ({name, description, price, pictureUrl, id}) => {
   const [muestraCompra, setMuestraCompra] = useState(false)
   const [cantidadCompra, setCantidadCompra] = useState(0)
+  const {addProducto}= useContext(CartContext)
 
   const handleComprar = (contador) => {
     setCantidadCompra(contador)
     setMuestraCompra(true)
+    addProducto({id,name, description, price, pictureUrl, quantity: contador})
   }
 
     return (
@@ -22,7 +26,7 @@ const ItemDetail = ({name, description, price, pictureUrl}) => {
           {muestraCompra ? (
           <Link to="/cart"><button>Finalizar Compra</button></Link>
     ) : (
-          <ItemCount initial={0} stock={4} onAdd={handleComprar}/>
+          <ItemCount initial={0} stock={6} onAdd={handleComprar}/>
     )}
         </div>
       </Paper> 
