@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { CartContext } from "./CartContext"
 
 
-const ItemDetail = ({name, description, price, pictureUrl, id}) => {
+const ItemDetail = ({name, description, price, pictureUrl, id, stock}) => {
   const [muestraCompra, setMuestraCompra] = useState(false)
   const [cantidadCompra, setCantidadCompra] = useState(0)
   const {addProducto}= useContext(CartContext)
@@ -13,7 +13,7 @@ const ItemDetail = ({name, description, price, pictureUrl, id}) => {
   const handleComprar = (contador) => {
     setCantidadCompra(contador)
     setMuestraCompra(true)
-    addProducto({id,name, description, price, pictureUrl, quantity: contador})
+    addProducto({id,name, description, price, pictureUrl, stock, quantity: contador})
   }
 
     return (
@@ -26,7 +26,7 @@ const ItemDetail = ({name, description, price, pictureUrl, id}) => {
           {muestraCompra ? (
           <Link to="/cart"><button>Finalizar Compra</button></Link>
     ) : (
-          <ItemCount initial={0} stock={6} onAdd={handleComprar}/>
+          <ItemCount initial={0} stock={stock} onAdd={handleComprar}/>
     )}
         </div>
       </Paper> 

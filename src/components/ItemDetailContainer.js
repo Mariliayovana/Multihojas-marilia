@@ -11,7 +11,7 @@ const getItem = (id) => (new Promise((resolve, reject) => {
 }));
 
 const ItemDetailContainer = () => {
-  const [planta, setPlanta] = useState({});
+  const [planta, setPlanta] = useState(null);
   let { id } = useParams()
 
   useEffect(() => {
@@ -23,7 +23,11 @@ const ItemDetailContainer = () => {
   }, [id]);
 
   return(
-    <ItemDetail {...planta } />
+    <>
+      {planta && (
+        <ItemDetail {...planta } />
+      )}
+    </>
   )   
 }
 export default ItemDetailContainer
