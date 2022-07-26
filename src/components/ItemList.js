@@ -1,24 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Item from "./Item";
-import plantas from '../plantas.json'
 
-const promesas = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(plantas);
-  }, 2000);
-});
-
-const ItemList = () =>{
-  const [plantas, setPlantas] = useState([]);
-
-  useEffect(() => {
-    promesas.then((data) => {
-      setPlantas(data);
-    }).catch(() => {
-      console.log('no paso');
-    })
-  }, [])
-
+const ItemList = ({ plantas }) =>{
   return(
     <div style={{ 
       display: 'flex'
