@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect} from 'react';
 import ItemDetail from './ItemDetail'
-import plantas from '../plantas.json'
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -11,7 +10,10 @@ const getItem = (id) => (new Promise((resolve, reject) => {
   getDoc(productoCollection)
   .then(resultado => {
     const data = resultado.data()
-    resolve(data)
+    resolve({
+      id: resultado.id,
+      ...data
+    })
   })
 }));
 

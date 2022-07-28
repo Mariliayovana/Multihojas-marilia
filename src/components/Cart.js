@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
+import Formulario from "./formulario";
+import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,6 +14,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import {db} from  "../firebase"
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const TAX_RATE = 0.18;
 
@@ -25,15 +29,35 @@ function subtotal(items) {
 
 const Cart = () =>{
   const {productos, removeProducto}= useContext(CartContext)
-
+  const [datosUsuario, setDatosUsuario]= useState({})
+  const cantidad = productos.map(({ quantity }) => quantity).reduce((sum, i) => i + sum, 0);
+  const cambiarDatos = (tipo, valor) => {
+    setDatosUsuario(d => ({
+      ...d,
+      [tipo]:valor
+    }))
+  }
   const invoiceSubtotal = subtotal(productos);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+  console.log(productos);
+
+const finalizarCompra = () => {
+  const colectionVentas = collection(db, 'ventas');
+  addDoc(colectionVentas,{
+    datosUsuario,
+    items: productos,
+    date: serverTimestamp(),
+    total: cantidad
+
+  })
+} 
 
   return (
     <>
       {productos.length > 0 ? (
         <TableContainer component={Paper}>
+          <Formulario datosUsuario={datosUsuario} cambiarDatos={cambiarDatos} />
           <Table sx={{ minWidth: 700 }} aria-label="spanning table">
             <TableHead>
               <TableRow>
@@ -77,6 +101,7 @@ const Cart = () =>{
                 <TableCell colSpan={2}>Total a Pagar</TableCell>
                 <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
               </TableRow>
+                <Button variant="contained" onClick={finalizarCompra}>Finalizo Mi Compra</Button>
             </TableBody>
           </Table>
         </TableContainer>
