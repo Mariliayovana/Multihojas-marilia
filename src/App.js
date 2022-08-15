@@ -1,9 +1,9 @@
 import React from 'react';
-import NavBar from './components/NavBar.js';
-import ItemListContainer from './components/ItemListContainer.js';
-import ItemDetailContainer from './components/ItemDetailContainer.js';
-import Cart from './components/Cart.js';
-import CartProvider from './components/CartContext.js';
+import NavBar from './components/NavBar/NavBar.js';
+import ItemListContainer from './components/ItemList/ItemListContainer.js';
+import ItemDetailContainer from './components/ItemDetail/ItemDetailContainer.js';
+import Cart from './components/Cart/Cart.js';
+import CartProvider from './contexts/CartContext.js';
 
 import {
   BrowserRouter,

@@ -2,7 +2,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import { useContext } from 'react';
-import { CartContext } from './CartContext';
+import { CartContext } from '../../contexts/CartContext';
 
 const CartWidget = () => {
   const {productos}= useContext(CartContext)
@@ -22,5 +22,6 @@ const CartWidget = () => {
     </IconButton>
     
   )
-}
+};
+
 export default CartWidget;

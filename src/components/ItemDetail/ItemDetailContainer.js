@@ -3,7 +3,9 @@ import { useState, useEffect} from 'react';
 import ItemDetail from './ItemDetail'
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
+import Swal from'sweetalert2'
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const getItem = (id) => (new Promise((resolve, reject) => {
   const productoCollection = doc(db, 'productos', id);
@@ -19,22 +21,28 @@ const getItem = (id) => (new Promise((resolve, reject) => {
 
 const ItemDetailContainer = () => {
   const [planta, setPlanta] = useState(null);
-  let { id } = useParams()
+  let { id } = useParams();
 
   useEffect(() => {
     getItem(id).then((data) => {
       setPlanta(data);
     }).catch(() => {
-      console.log('no paso');
+      Swal.fire({
+        icon: 'error',
+        text: 'No ingreso!', 
+      })
     })
   }, [id]);
 
   return(
     <>
-      {planta && (
+      {planta ? (
         <ItemDetail {...planta } />
+      ) : (
+        <LoadingSpinner />
       )}
     </>
   )   
 }
+
 export default ItemDetailContainer

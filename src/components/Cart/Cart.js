@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { CartContext } from "./CartContext";
-import Formulario from "./formulario";
+import { CartContext } from "../../contexts/CartContext";
+import Formulario from "./Formulario";
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,8 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import {db} from  "../firebase"
+import {db} from  "../../firebase"
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import Swal from 'sweetalert2'
 
 const TAX_RATE = 0.18;
 
@@ -37,10 +38,10 @@ const Cart = () =>{
       [tipo]:valor
     }))
   }
+
   const invoiceSubtotal = subtotal(productos);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-  console.log(productos);
 
 const finalizarCompra = () => {
   const colectionVentas = collection(db, 'ventas');
@@ -49,10 +50,12 @@ const finalizarCompra = () => {
     items: productos,
     date: serverTimestamp(),
     total: cantidad
-
+  })
+  Swal.fire({
+    icon: 'success',
+    title: 'Compra Exitosa',
   })
 } 
-
   return (
     <>
       {productos.length > 0 ? (
@@ -113,4 +116,5 @@ const finalizarCompra = () => {
       )}
     </>)
 }
+
 export default Cart

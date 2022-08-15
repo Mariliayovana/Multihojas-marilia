@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ParkIcon from '@mui/icons-material/Park';
-import CartWidget from '../components/CartWidget';
+import CartWidget from './CartWidget';
 import { Link } from 'react-router-dom';
 
 const pages = [{

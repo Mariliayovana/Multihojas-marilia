@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import React, { useState } from "react";
+import React  from "react";
 
 const Formulario = ({ cambiarDatos, datosUsuario }) => {
   return (
@@ -11,4 +11,6 @@ const Formulario = ({ cambiarDatos, datosUsuario }) => {
     </>
   )
 }
-export default Formulario  
+
+export default Formulario
+  
