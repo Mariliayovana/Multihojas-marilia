@@ -30,7 +30,11 @@ function subtotal(items) {
 
 const Cart = () =>{
   const {productos, removeProducto}= useContext(CartContext)
-  const [datosUsuario, setDatosUsuario]= useState({})
+  const [datosUsuario, setDatosUsuario]= useState({
+    nombre: '',
+    numero: '',
+    correo: '',
+  })
   const cantidad = productos.map(({ quantity }) => quantity).reduce((sum, i) => i + sum, 0);
   const cambiarDatos = (tipo, valor) => {
     setDatosUsuario(d => ({
@@ -43,19 +47,45 @@ const Cart = () =>{
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
-const finalizarCompra = () => {
-  const colectionVentas = collection(db, 'ventas');
-  addDoc(colectionVentas,{
-    datosUsuario,
-    items: productos,
-    date: serverTimestamp(),
-    total: cantidad
-  })
-  Swal.fire({
-    icon: 'success',
-    title: 'Compra Exitosa',
-  })
-} 
+  const validarDatosUsuario = () => {
+    if (datosUsuario.nombre?.trim() === ''
+      || datosUsuario.numero?.trim() === ''
+      || datosUsuario.correo?.trim() === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Por favor, llenar todos los datos',
+        })
+        return false
+    }
+    if (!(datosUsuario.correo?.trim()
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      ))) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Por favor, escribe un correo válido',
+        })
+        return false
+    }
+    return true
+  }
+
+  const finalizarCompra = () => {
+    if (validarDatosUsuario()) {
+      const colectionVentas = collection(db, 'ventas');
+      addDoc(colectionVentas,{
+        datosUsuario,
+        items: productos,
+        date: serverTimestamp(),
+        total: cantidad
+      })
+      Swal.fire({
+        icon: 'success',
+        title: 'Compra Exitosa',
+      })
+    }
+  } 
   return (
     <>
       {productos.length > 0 ? (

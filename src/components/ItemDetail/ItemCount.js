@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const  ItemCount = ({stock, initial, onAdd}) => {
   const [contador, setContador] = useState(Number(initial));
@@ -18,6 +19,11 @@ const  ItemCount = ({stock, initial, onAdd}) => {
   const handleAgregar = () => {
     if (contador > 0) {
       onAdd(contador)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Por favor, agrega al menos 1 producto.',
+      })
     }
   }
   return(
